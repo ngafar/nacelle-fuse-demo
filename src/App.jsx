@@ -1,30 +1,48 @@
+import { useState, useEffect } from "react";
 import Fuse from "fuse.js";
+import Storefront from "@nacelle/storefront-sdk";
 
 function App() {
-  const movies = [
-    {
-      title: "The Shawshank Redemption",
-      director: "Frank Darabont",
-      year: 1994,
-    },
-    { title: "The Godfather", director: "Francis Ford Coppola", year: 1972 },
-    {
-      title: "The Godfather: Part II",
-      director: "Francis Ford Coppola",
-      year: 1974,
-    },
-    { title: "The Dark Knight", director: "Christopher Nolan", year: 2008 },
-    { title: "12 Angry Men", director: "Sidney Lumet", year: 1957 },
-  ];
+  const [spaceId, setSpaceId] = useState("");
+  const [token, setToken] = useState("");
+  const [products, setProducts] = useState([]);
 
-  const fuse = new Fuse(movies, {
-    keys: ["title", "director"],
-  });
+  const storefrontEndpoint = `https://storefront.api.nacelle.com/graphql/v1/spaces/${spaceId}`;
 
-  const q = fuse.search("Nolan");
-  q.forEach((result) => console.log(result.item.title));
+  async function getProducts() {
+    const client = new Storefront({
+      token,
+      storefrontEndpoint,
+    });
 
-  return <>Hello, World!</>;
+    const productsResp = await client.products();
+
+    const productTitles = [];
+
+    productsResp.forEach((product) => {
+      productTitles.push(product.content.title);
+    });
+
+    setProducts(productsResp);
+  }
+
+  return (
+    <>
+      <input
+        type="text"
+        placeholder="Space ID"
+        onChange={(e) => setSpaceId(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Token"
+        onChange={(e) => setToken(e.target.value)}
+      />
+      <button onClick={getProducts}>Load Products</button>
+      
+      {JSON.stringify(products)}
+    </>
+  );
 }
 
 export default App;
