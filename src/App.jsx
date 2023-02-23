@@ -39,8 +39,20 @@ function App() {
         onChange={(e) => setToken(e.target.value)}
       />
       <button onClick={getProducts}>Load Products</button>
-      
-      {JSON.stringify(products)}
+
+      <p>{products.length} products retrieved</p>
+      <div
+        style={{
+          height: 350,
+          overflow: "scroll",
+          background: "#282a36",
+          color: "#50fa7b",
+          fontSize: 14,
+          padding: 10,
+        }}
+      >
+        <pre>{JSON.stringify(products, null, 2)}</pre>
+      </div>
     </>
   );
 }
