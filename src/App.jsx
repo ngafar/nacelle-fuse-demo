@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Fuse from "fuse.js";
 import Storefront from "@nacelle/storefront-sdk";
 
@@ -62,11 +62,13 @@ function App() {
       */}
 
       <h2 style={{ color: "#bd93f9" }}>Search</h2>
+
       <input
         type="text"
         placeholder="Search"
         onChange={(e) => searchForProducts(e.target.value)}
       />
+      
       {searchResults.length > 0 && (
         <p style={{ color: "#50fa7b" }}>{searchResults.length} results found</p>
       )}
