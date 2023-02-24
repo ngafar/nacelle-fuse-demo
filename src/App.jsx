@@ -31,6 +31,8 @@ function App() {
 
   return (
     <>
+      <h1>Nacelle + Fuse Demo</h1>
+
       <input
         type="text"
         placeholder="Space ID"
@@ -43,6 +45,7 @@ function App() {
       />
       <button onClick={getProducts}>Load Products</button>
 
+      {/*
       <p>{products.length} products retrieved</p>
       <div
         style={{
@@ -56,6 +59,7 @@ function App() {
       >
         <pre>{JSON.stringify(products, null, 2)}</pre>
       </div>
+      */}
 
       <h2>Search</h2>
       <input
