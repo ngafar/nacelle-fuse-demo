@@ -31,7 +31,7 @@ function App() {
 
   return (
     <>
-      <h1 style={{ color: "#bd93f9" }}>Nacelle + Fuse Demo</h1>
+      <h1 style={{ color: "#bd93f9" }}>Nacelle + Fuse.js Demo</h1>
 
       <input
         type="text"
