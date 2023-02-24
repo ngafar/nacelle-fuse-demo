@@ -2,6 +2,8 @@ import { useState } from "react";
 import Fuse from "fuse.js";
 import Storefront from "@nacelle/storefront-sdk";
 
+import ProductList from "./ProductList";
+
 function App() {
   const [spaceId, setSpaceId] = useState("");
   const [token, setToken] = useState("");
@@ -45,22 +47,6 @@ function App() {
       />
       <button onClick={getProducts}>Load Products</button>
 
-      {/*
-      <p>{products.length} products retrieved</p>
-      <div
-        style={{
-          height: 350,
-          overflow: "scroll",
-          background: "#282a36",
-          color: "#50fa7b",
-          fontSize: 14,
-          padding: 10,
-        }}
-      >
-        <pre>{JSON.stringify(products, null, 2)}</pre>
-      </div>
-      */}
-
       <h2 style={{ color: "#bd93f9" }}>Search</h2>
 
       <input
@@ -68,34 +54,16 @@ function App() {
         placeholder="Search"
         onChange={(e) => searchForProducts(e.target.value)}
       />
-      
+
       {searchResults.length > 0 && (
         <p style={{ color: "#50fa7b" }}>{searchResults.length} results found</p>
       )}
 
-      {searchResults.map((product) => (
-        <div key={product.id}>
-          <h3>{product.content.title}</h3>
-          {product.content.featuredMedia !== null && (
-            <img
-              src={product.content.featuredMedia.thumbnailSrc}
-              style={{ border: "1px solid #50fa7b", borderRadius: 5 }}
-            />
-          )}
-        </div>
-      ))}
-
-      {products.map((product) => (
-        <div key={product.id}>
-          <h3>{product.content.title}</h3>
-          {product.content.featuredMedia !== null && (
-            <img
-              src={product.content.featuredMedia.thumbnailSrc}
-              style={{ border: "1px solid #50fa7b", borderRadius: 5 }}
-            />
-          )}
-        </div>
-      ))}
+      {searchResults.length > 0 ? (
+        <ProductList products={searchResults} />
+      ) : (
+        <ProductList products={products} />
+      )}
     </>
   );
 }
