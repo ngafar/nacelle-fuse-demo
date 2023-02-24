@@ -6,6 +6,7 @@ function App() {
   const [spaceId, setSpaceId] = useState("");
   const [token, setToken] = useState("");
   const [products, setProducts] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
 
   const storefrontEndpoint = `https://storefront.api.nacelle.com/graphql/v1/spaces/${spaceId}`;
 
@@ -16,14 +17,16 @@ function App() {
     });
 
     const productsResp = await client.products();
+    setProducts(productsResp);
+  }
 
-    const productTitles = [];
-
-    productsResp.forEach((product) => {
-      productTitles.push(product.content.title);
+  function searchForProducts(query) {
+    const fuse = new Fuse(products, {
+      keys: ["content.title", "content.description"],
     });
 
-    setProducts(productsResp);
+    const results = fuse.search(query);
+    setSearchResults(results.map((result) => result.item));
   }
 
   return (
@@ -53,6 +56,32 @@ function App() {
       >
         <pre>{JSON.stringify(products, null, 2)}</pre>
       </div>
+
+      <h2>Search</h2>
+      <input
+        type="text"
+        placeholder="Search"
+        onChange={(e) => searchForProducts(e.target.value)}
+      />
+      {searchResults.length > 0 && <p>{searchResults.length} results found</p>}
+
+      {searchResults.map((product) => (
+        <div key={product.id}>
+          <h3>{product.content.title}</h3>
+          {product.content.featuredMedia !== null && (
+            <img src={product.content.featuredMedia.thumbnailSrc} />
+          )}
+        </div>
+      ))}
+
+      {products.map((product) => (
+        <div key={product.id}>
+          <h3>{product.content.title}</h3>
+          {product.content.featuredMedia !== null && (
+            <img src={product.content.featuredMedia.thumbnailSrc} />
+          )}
+        </div>
+      ))}
     </>
   );
 }
