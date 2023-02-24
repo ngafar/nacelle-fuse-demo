@@ -31,7 +31,7 @@ function App() {
 
   return (
     <>
-      <h1>Nacelle + Fuse Demo</h1>
+      <h1 style={{ color: "#bd93f9" }}>Nacelle + Fuse Demo</h1>
 
       <input
         type="text"
@@ -67,14 +67,16 @@ function App() {
         placeholder="Search"
         onChange={(e) => searchForProducts(e.target.value)}
       />
-      {searchResults.length > 0 && <p>{searchResults.length} results found</p>}
+      {searchResults.length > 0 && (
+        <p style={{ color: "#50fa7b" }}>{searchResults.length} results found</p>
+      )}
 
       {searchResults.map((product) => (
         <div key={product.id}>
-          <h3>{product.content.title}</h3>
           {product.content.featuredMedia !== null && (
             <img src={product.content.featuredMedia.thumbnailSrc} />
           )}
+          <h3>{product.content.title}</h3>
         </div>
       ))}
 
