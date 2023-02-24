@@ -61,7 +61,7 @@ function App() {
       </div>
       */}
 
-      <h2>Search</h2>
+      <h2 style={{ color: "#bd93f9" }}>Search</h2>
       <input
         type="text"
         placeholder="Search"
@@ -73,10 +73,13 @@ function App() {
 
       {searchResults.map((product) => (
         <div key={product.id}>
-          {product.content.featuredMedia !== null && (
-            <img src={product.content.featuredMedia.thumbnailSrc} />
-          )}
           <h3>{product.content.title}</h3>
+          {product.content.featuredMedia !== null && (
+            <img
+              src={product.content.featuredMedia.thumbnailSrc}
+              style={{ border: "1px solid #50fa7b", borderRadius: 5 }}
+            />
+          )}
         </div>
       ))}
 
@@ -84,7 +87,10 @@ function App() {
         <div key={product.id}>
           <h3>{product.content.title}</h3>
           {product.content.featuredMedia !== null && (
-            <img src={product.content.featuredMedia.thumbnailSrc} />
+            <img
+              src={product.content.featuredMedia.thumbnailSrc}
+              style={{ border: "1px solid #50fa7b", borderRadius: 5 }}
+            />
           )}
         </div>
       ))}
