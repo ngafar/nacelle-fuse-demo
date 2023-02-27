@@ -1,9 +1,10 @@
 export default function ProductList({ products }) {
   return (
-    <div>
+    <>
       {products.map((product) => (
         <div key={product.id}>
           <h3>{product.content.title}</h3>
+
           {product.content.featuredMedia !== null && (
             <img
               src={product.content.featuredMedia.thumbnailSrc}
@@ -12,6 +13,6 @@ export default function ProductList({ products }) {
           )}
         </div>
       ))}
-    </div>
+    </>
   );
 }
